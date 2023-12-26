@@ -19,6 +19,32 @@ module.exports = {
             '@core': path.resolve(__dirname, 'src/core')
         }
     },
+    module: {
+        rules: [
+          {
+            test: /\.s[ac]ss$/i,
+            use: [
+              MiniCssExtractPlugin.loader,
+              // Translates CSS into CommonJS
+              "css-loader",
+              // Compiles Sass to CSS
+              "sass-loader",
+            ],
+          },
+          {
+            test: /\.(?:js|mjs|cjs)$/,
+            exclude: /node_modules/,
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: [
+                  ['@babel/preset-env', { targets: "defaults" }]
+                ]
+              }
+            }
+          }
+        ],
+      },
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
