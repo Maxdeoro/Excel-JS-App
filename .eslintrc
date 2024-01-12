@@ -14,7 +14,8 @@
         "no-trailing-spaces":"off",
         "eol-last":"off",
         "object-curly-spacing":"off",
-        "no-unused-vars":"warn"
+        "no-unused-vars":"warn",
+        "padded-blocks":"off"
         // "quotes":["off", "double"]
     },
     "extends": [

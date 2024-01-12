@@ -25,6 +25,7 @@ const jsLoaders = () => {
         presets: [
           ['@babel/preset-env', { targets: 'defaults' }],
         ],
+        plugins: ['@babel/plugin-transform-class-properties']
       },
     },
   ];
