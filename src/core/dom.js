@@ -1,15 +1,45 @@
 class Dom {
-    constructor() {};
+    constructor(selector) {
+        this.$el = typeof selector==='string' ? 
+        document.querySelector(selector) : selector;
+    };
+
+    html(html) {
+        if (typeof html === 'string') {
+            this.$el.innerHTML = html;
+            return this;
+        }
+        return this.$el.outerHTML.trim();
+    };
+
+    clear() {
+        this.html('');
+        return this;
+    };
+
+    append(node) {
+        console.log(node);
+        if (node instanceof Dom) {
+            node = node.$el;
+        }
+        // this.$el.append(node.$el);
+        if (Element.prototype.append) {
+            this.$el.append(node);
+        } else {
+            this.$el.appendChild(node);
+        }
+        return this;
+    }
 }
 
-export function $() {
-    return new Dom();
+export function $(selector) {
+    return new Dom(selector);
 };
 
 $.create = (tagName, classes='') => {
-    const elem = document.createElement(tagName);
+    const el = document.createElement(tagName);
     if (classes) {
-        elem.classList.add(classes);
+        el.classList.add(classes);
     }
-    return elem;
+    return $(el);
 };

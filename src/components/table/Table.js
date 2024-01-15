@@ -10,6 +10,13 @@ export class Table extends ExcelComponent {
                 <div class="column">A</div>
                 <div class="column">B</div>
                 <div class="column">C</div>
+                <div class="column">D</div>
+                <div class="column">E</div>
+                <div class="column">F</div>
+                <div class="column">G</div>
+                <div class="column">H</div>
+                <div class="column">I</div>
+                <div class="column">J</div>
             </div>
         </div>
         <div class="row">

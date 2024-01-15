@@ -15,7 +15,9 @@
         "eol-last":"off",
         "object-curly-spacing":"off",
         "no-unused-vars":"warn",
-        "padded-blocks":"off"
+        "padded-blocks":"off",
+        "operator-linebreak":"off",
+        "no-debugger":"off"
         // "quotes":["off", "double"]
     },
     "extends": [
