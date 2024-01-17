@@ -14,18 +14,15 @@ export class Excel {
 
          this.components = this.components.map((Component) => {
             const $el = $.create('div', Component.className);
-            // const $el = document.createElement('div');
-            // $el.classList.add(Component.className);
             const component = new Component($el);
-            // $el.innerHTML = component.toHTML();
             $el.html(component.toHTML());
+            // DEBUG
+            // if (component.name) {
+            //     window['c' + component.name] = component;
+            // }
             $root.append($el);
             return component;
-            // console.log(component.toHTML());
-            // $root.insertAdjacentHTML('beforeend', component.toHTML());
         });
-        // $root.textContent = 'TEST';
-        // $root.style.fontSize = '5rem';
         return $root;
     };
     

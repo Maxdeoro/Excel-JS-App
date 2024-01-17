@@ -19,11 +19,18 @@ export class DomListener {
                 // eslint-disable-next-line max-len
                 throw new Error(`Method ${method} is not implemented in ${name} Component`);
             }
-            this.$root.on(listener, this[method].bind(this));
+            // this.$root.on(listener, this[method].bind(this));
+            this[method] = this[method].bind(this);
+            this.$root.on(listener, this[method]);
         });
     };
 
-    removeDOMListeners() {};
+    removeDOMListeners() {
+        this.listeners.forEach((listener) => {
+            const method = getMethodName(listener);
+            this.$root.off(listener, this[method]);
+        });
+    };
 };
 
 function getMethodName(eventName) {
