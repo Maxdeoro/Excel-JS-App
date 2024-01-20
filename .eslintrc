@@ -8,7 +8,17 @@
     "rules": {
         "require-jsdoc":"off",
         "comma-dangle":"off",
-        "linebreak-style":"off"
+        "linebreak-style":"off",
+        "indent":"off",
+        "no-extra-semi":"off",
+        "no-trailing-spaces":"off",
+        "eol-last":"off",
+        "object-curly-spacing":"off",
+        "no-unused-vars":"warn",
+        "padded-blocks":"off",
+        "operator-linebreak":"off",
+        "no-debugger":"off"
+        // "quotes":["off", "double"]
     },
     "extends": [
         "eslint:recommended", "google"

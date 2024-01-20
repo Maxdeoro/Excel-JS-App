@@ -1,3 +1,4 @@
+/* eslint-disable no-multi-spaces */
 /* eslint-disable linebreak-style */
 /* eslint-disable object-curly-spacing */
 // eslint-disable-next-line linebreak-style
@@ -6,6 +7,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');            // added 08.01
 
 const isProd = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
@@ -23,6 +25,7 @@ const jsLoaders = () => {
         presets: [
           ['@babel/preset-env', { targets: 'defaults' }],
         ],
+        plugins: ['@babel/plugin-transform-class-properties']
       },
     },
   ];
@@ -94,6 +97,7 @@ module.exports = {
     hot: isDev,
   },
   plugins: [
+    new ESLintPlugin(),         // added 08.01.2024
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'index.html',
