@@ -10,7 +10,7 @@ function createCell() {
 
 // eslint-disable-next-line no-unused-vars
 function createCol(col) {
-    return `<div class='column'>
+    return `<div class='column' data-type='resizable'>
                 ${col}
                 <div class='col-resize' data-resize='col'></div>
             </div>`;

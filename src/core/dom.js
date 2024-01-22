@@ -26,7 +26,7 @@ class Dom {
     };
 
     append(node) {
-        console.log(node);
+        // console.log(node);
         if (node instanceof Dom) {
             node = node.$el;
         }
@@ -38,6 +38,12 @@ class Dom {
         }
         return this;
     }
+    closest(selector) {
+        return $(this.$el.closest(selector));
+    };
+    getCoords() {
+        return this.$el.getBoundingClientRect();
+    };
 }
 
 export function $(selector) {
