@@ -26,11 +26,9 @@ class Dom {
     };
 
     append(node) {
-        // console.log(node);
         if (node instanceof Dom) {
             node = node.$el;
         }
-        // this.$el.append(node.$el);
         if (Element.prototype.append) {
             this.$el.append(node);
         } else {
@@ -38,9 +36,16 @@ class Dom {
         }
         return this;
     }
+
+    // getter
+    get data() {
+        return this.$el.dataset;
+    };
+
     closest(selector) {
         return $(this.$el.closest(selector));
     };
+    
     getCoords() {
         return this.$el.getBoundingClientRect();
     };

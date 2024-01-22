@@ -4,13 +4,13 @@ const CODES = {
     Z: 90           // 'Z'.charCodeAt()
 };
 
-function createCell() {
-    return `<div class="cell" contenteditable></div>`;
+function toCell(_, col) {
+    return `<div class="cell" contenteditable data-col='${col}'></div>`;
 };
 
 // eslint-disable-next-line no-unused-vars
-function createCol(col) {
-    return `<div class='column' data-type='resizable'>
+function toColumn(col, index) {
+    return `<div class='column' data-type='resizable' data-col='${index}'>
                 ${col}
                 <div class='col-resize' data-resize='col'></div>
             </div>`;
@@ -18,15 +18,19 @@ function createCol(col) {
 
 function createRow(index, content) {
     // remove row-resize from upper row
-    const resizer = index ? `<div class='row-resize' data-resize='row'>
-                             </div>` : '';
+    const resize = index ? `<div class='row-resize' data-resize='row'>
+                            </div>` : '';
     return `<div class='row'>
                 <div class='row-info'>
                     ${index ? index : ''}
-                    ${resizer}
+                    ${resize}
                 </div>
                 <div class='row-data'>${content}</div>
             </div>`;
+};
+
+function toChar(_, index) {
+    return String.fromCharCode(CODES.A + index);
 };
 
 export function createTable(rowsCount=15) {
@@ -35,13 +39,8 @@ export function createTable(rowsCount=15) {
     const rows = [];
     const cols = new Array(colsCount)
         .fill('')
-        .map((col, index) => {
-            return String.fromCharCode(CODES.A + index);
-        })
-        // .map(toChar)
-        .map((el) => {
-            return createCol(el);
-        })
+        .map(toChar)
+        .map(toColumn)
         .join('');
 
     rows.push(createRow(null, cols));
@@ -49,9 +48,10 @@ export function createTable(rowsCount=15) {
     for (let i = 0; i < rowsCount; i++) {
         const cells = new Array(colsCount)
             .fill('')
-            .map((el) => {
-                return createCell(el);
-            })
+            .map(toCell)
+            // .map((el) => {
+            //     return toCell(el);
+            // })
             .join('');
 
         rows.push(createRow(i + 1, cells));
