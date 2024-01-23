@@ -1,6 +1,6 @@
 import { ExcelComponent } from '../../core/ExcelComponent';
 import { createTable } from './table.template';
-// import { $ } from '../../core/dom';
+// import { findAll } from '../../core/dom';
 import { $ } from '@core/dom';
 
 export class Table extends ExcelComponent {
@@ -24,17 +24,32 @@ export class Table extends ExcelComponent {
             // const $parent = $resizer.$el.closest('.column'); // take nearst parent
             const $parent = $resizer.closest('[data-type="resizable"]');
             const coords = $parent.getCoords();
+            const type = $resizer.data.resize;
+            console.log(type);
+            // console.log(coords);
+            const cells = this.$root
+                .findAll(`[data-col="${$parent.data.col}"]`);
             // console.log(coords);
             document.onmousemove = (e) => {
-                // console.log(mousemove);
-                const delta = e.pageX - coords.right; // определение сдвига в px
-                const value = coords.width + delta;
-                $parent.$el.style.width = value + 'px';
-                document.querySelectorAll(`[data-col="${$parent.data.col}"]`)
-                    .forEach((el) => {
-                        el.style.width = value + 'px';
-                    });
-                // console.log(delta);
+                console.log('mousemove');
+                if (type === 'col') {
+                    const delta = e.pageX - coords.right;
+                    const value = coords.width + delta;
+                    $parent.$el.style.width = value + 'px';
+                    // document
+                    // .querySelectorAll(`[data-col="${$parent.data.col}"]`)
+                    // this.$root.findAll(`[data-col="${$parent.data.col}"]`)
+                    cells.forEach((el) => {
+                            el.style.width = value + 'px';
+                        });
+                } else {
+                    const delta = e.pageY - coords.bottom;
+                    const value =coords.height + delta;
+                    $parent.$el.style.height = value + 'px';
+                    // cells.forEach((el) => {
+                    //         el.style.height = value + 'px';
+                    //     });
+                }
             };
     
             document.onmouseup = (e) => {

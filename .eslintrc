@@ -18,7 +18,7 @@
         "padded-blocks":"off",
         "operator-linebreak":"off",
         "no-debugger":"off",
-        "max-len":"off"
+        "max-len":["warn",{"code":90}]
         // "quotes":["off", "double"]
     },
     "extends": [
