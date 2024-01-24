@@ -1,6 +1,5 @@
 import { ExcelComponent } from '../../core/ExcelComponent';
 import { createTable } from './table.template';
-// import { findAll } from '../../core/dom';
 import { $ } from '@core/dom';
 
 export class Table extends ExcelComponent {
@@ -19,14 +18,10 @@ export class Table extends ExcelComponent {
     onMousedown(event) {
         if (event.target.dataset.resize) {
             const $resizer = $(event.target); // wrap into $ from dom.js
-            // const $parent = $resizer.$el.parentNode; // bad idea
-            // eslint-disable-next-line max-len
-            // const $parent = $resizer.$el.closest('.column'); // take nearst parent
             const $parent = $resizer.closest('[data-type="resizable"]');
             const coords = $parent.getCoords();
             const type = $resizer.data.resize;
-            console.log(type);
-            // console.log(coords);
+            // console.log(type);
             const cells = this.$root
                 .findAll(`[data-col="${$parent.data.col}"]`);
             // console.log(coords);
@@ -35,20 +30,16 @@ export class Table extends ExcelComponent {
                 if (type === 'col') {
                     const delta = e.pageX - coords.right;
                     const value = coords.width + delta;
-                    $parent.$el.style.width = value + 'px';
-                    // document
-                    // .querySelectorAll(`[data-col="${$parent.data.col}"]`)
-                    // this.$root.findAll(`[data-col="${$parent.data.col}"]`)
+                    // $parent.$el.style.width = value + 'px';
+                    $parent.css({width: value + 'px'});
                     cells.forEach((el) => {
                             el.style.width = value + 'px';
                         });
                 } else {
                     const delta = e.pageY - coords.bottom;
                     const value =coords.height + delta;
-                    $parent.$el.style.height = value + 'px';
-                    // cells.forEach((el) => {
-                    //         el.style.height = value + 'px';
-                    //     });
+                    // $parent.$el.style.height = value + 'px';
+                    $parent.css({height: value + 'px'});
                 }
             };
     

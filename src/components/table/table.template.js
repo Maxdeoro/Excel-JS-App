@@ -8,7 +8,6 @@ function toCell(_, col) {
     return `<div class="cell" contenteditable data-col='${col}'></div>`;
 };
 
-// eslint-disable-next-line no-unused-vars
 function toColumn(col, index) {
     return `<div class='column' data-type='resizable' data-col='${index}'>
                 ${col}
@@ -34,7 +33,6 @@ function toChar(_, index) {
 };
 
 export function createTable(rowsCount=15) {
-    // eslint-disable-next-line no-unused-vars
     const colsCount = CODES.Z - CODES.A + 1;
     const rows = [];
     const cols = new Array(colsCount)
@@ -49,9 +47,6 @@ export function createTable(rowsCount=15) {
         const cells = new Array(colsCount)
             .fill('')
             .map(toCell)
-            // .map((el) => {
-            //     return toCell(el);
-            // })
             .join('');
 
         rows.push(createRow(i + 1, cells));
