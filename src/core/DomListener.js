@@ -10,9 +10,7 @@ export class DomListener {
     }
 
     initDOMListeners() {
-        // console.log(this.listeners);
         this.listeners.forEach((listener) => {
-            // const method = capitalize(listener);
             const method = getMethodName(listener);
             const name = this.name || '';
             if (!this[method]) {
