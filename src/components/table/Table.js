@@ -5,6 +5,8 @@ import { shouldResize } from './table.functions';
 import { TableSelection } from './TableSelection';
 import { isCell } from './table.functions';
 import { $ } from '../../core/dom';
+import { matrix } from './table.functions';
+// import { range } from '../../core/utils';
 
 export class Table extends ExcelComponent {
     static className = 'excel__table';
@@ -35,9 +37,27 @@ export class Table extends ExcelComponent {
         if (shouldResize(event)) {
             resizeHandler(this.$root, event);
         } else if (isCell(event)) {
-            const $target = $(event.target);  
-            this.selection.select($target);
-            console.log(event.target);
+            const $target = $(event.target); 
+            if (event.shiftKey) {
+                // group of cells select
+
+                const $cells = matrix($target, this.selection.current)
+                        .map((id) => this.$root.find(`[data-id='${id}']`));
+                        this.selection.selectGroup($cells);
+
+                // console.log($cells);
+            } else {
+                this.selection.select($target);
+            }
         }
     };
 };
+
+/* function range(start, end) {
+    if (start > end) {
+        [end, start] = [start, end];
+    }
+    return new Array(end - start + 1)
+        .fill('')
+        .map((_, index) => start + index);
+}; */
