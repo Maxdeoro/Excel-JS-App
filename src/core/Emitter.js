@@ -5,7 +5,7 @@ export class Emitter {
 
     // dispatch
     emit(event, ...args) {
-        if (Array.isArray(this.listeners[event])) {
+        if (!Array.isArray(this.listeners[event])) {
             return false;
         }
         this.listeners[event].forEach((listener) => {
@@ -21,11 +21,11 @@ export class Emitter {
         // unsuscribe
         return () => {
             this.listeners[event] = 
-                this.listeners[event].filter(listener => listener !== fn);
+                this.listeners[event].filter((listener) => listener !== fn);
         };
     };
 };
 
 const emitter = new Emitter();
-emitter.subscribe('crash', data => console.log('Sub: ' + data));
+emitter.subscribe('crash', (data) => console.log('Sub: ' + data));
 emitter.emit('crash', 45);
