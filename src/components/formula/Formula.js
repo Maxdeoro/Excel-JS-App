@@ -20,6 +20,7 @@ export class Formula extends ExcelComponent {
 
     onInput(event) {
         const text = event.target.textContent.trim();
-        this.emitter.emit('Emitter is working', text);
+        this.$emit('Formula: input', text);
+        // this.emitter.emit('Emitter is working', text);
     };
 };

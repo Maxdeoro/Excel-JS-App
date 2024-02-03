@@ -35,10 +35,11 @@ export class Table extends ExcelComponent {
         // this.selection = new TableSelection();
         const $cell = this.$root.find('[data-id="0:0"]');
         this.selection.select($cell);
-        this.emitter.subscribe('Emitter is working', 
+        // this.emitter.subscribe('Emitter is working', 
+        this.$on('Formula: input', 
         (text) => {
             this.selection.current.text(text);
-            console.log('To Table from Formula', text);
+            // console.log('To Table from Formula', text);
         });
     };
 
