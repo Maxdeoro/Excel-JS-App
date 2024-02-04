@@ -34,15 +34,11 @@ export class Formula extends ExcelComponent {
     };
 
     onInput(event) {
-        // const text = event.target.textContent.trim();
-        // const text = $(event.target).textContent.trim();
         this.$emit('Formula: input', $(event.target).text());
-        // this.emitter.emit('Emitter is working', text);
     };
 
     onKeydown(event) {
         const keys = ['Enter', 'Tab'];
-        // if (event.key === 'Enter') {
         if (keys.includes(event.key)) {
             event.preventDefault();
             this.$emit('Formula: done');

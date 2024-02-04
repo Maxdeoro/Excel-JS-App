@@ -7,8 +7,6 @@ import { isCell } from './table.functions';
 import { $ } from '../../core/dom';
 import { matrix } from './table.functions';
 import { nextSelector } from './table.functions';
-// import { Emitter } from '../../core/Emitter';
-// import { range } from '../../core/utils';
 
 export class Table extends ExcelComponent {
     static className = 'excel__table';
@@ -32,15 +30,11 @@ export class Table extends ExcelComponent {
     init() {
         super.init();
 
-        // this.selection = new TableSelection();
-        // const $cell = this.$root.find('[data-id="0:0"]');
         this.selectCell(this.$root.find('[data-id="0:0"]'));
 
-        // this.emitter.subscribe('Emitter is working', 
         this.$on('Formula: input', 
         (text) => {
             this.selection.current.text(text);
-            // console.log('To Table from Formula', text);
         });
 
         this.$on('Formula: done', () => {
@@ -64,8 +58,6 @@ export class Table extends ExcelComponent {
                 const $cells = matrix($target, this.selection.current)
                         .map((id) => this.$root.find(`[data-id='${id}']`));
                         this.selection.selectGroup($cells);
-
-                // console.log($cells);
             } else {
                 this.selection.select($target);
             }
@@ -85,12 +77,9 @@ export class Table extends ExcelComponent {
         if (keys.includes(key) && !event.shiftKey) {
             event.preventDefault();
             const id = this.selection.current.id(true);
-            // console.log(key);
 
             const $next = this.$root.find(nextSelector(key, id));
             this.selectCell($next);
-            // this.selection.select($next);
-            // this.$emit('Table: select', $next);
         }
         
     };
@@ -100,28 +89,3 @@ export class Table extends ExcelComponent {
     };
 };
 
-// function nextSelector(key, {col, row}) {
-    // const MIN_VALUE = 0;
-    // switch (key) {
-        // case 'Enter':
-        // case 'ArrowDown': row++;
-            // break;
-        // case 'Tab':
-        // case 'ArrowRight': col++;
-            // break;
-        // case 'ArrowLeft': col = col-1 < MIN_VALUE ? MIN_VALUE : col-1;
-            // break;
-        // case 'ArrowUp': row = row-1 < MIN_VALUE ? MIN_VALUE : row-1;
-           // break;
-    // }
-   // return `[data-id='${row}:${col}']`;
-// };
-
-/* function range(start, end) {
-    if (start > end) {
-        [end, start] = [start, end];
-    }
-    return new Array(end - start + 1)
-        .fill('')
-        .map((_, index) => start + index);
-}; */
