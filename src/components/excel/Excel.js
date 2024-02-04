@@ -1,20 +1,21 @@
+import { Emitter } from '../../core/Emitter';
 import { $ } from '../../core/dom';
 
 export class Excel {
     constructor(selector, options) {
         this.$el = $(selector);
-        // this.$el = document.querySelector(selector);
         this.components = options.components || [];
+        this.emitter = new Emitter();
     }
 
     getRoot() {
         const $root = $.create('div', 'excel');
-        // const $root = document.createElement('div');
-        // $root.classList.add('excel');
+
+        const componentOptions = {emitter: this.emitter};
 
          this.components = this.components.map((Component) => {
             const $el = $.create('div', Component.className);
-            const component = new Component($el);
+            const component = new Component($el, componentOptions);
             $el.html(component.toHTML());
             // DEBUG
             // if (component.name) {
@@ -28,10 +29,10 @@ export class Excel {
     
     render() {
         this.$el.append(this.getRoot());
-        // const node = document.createElement('h1');
-        // node.textContent = 'Test';
-        // this.$el.append(node);
-        // console.log(this.components);
         this.components.forEach((component) => component.init());
+    };
+
+    destroy() {
+        this.components.forEach((component) => component.destroy());
     };
 };
