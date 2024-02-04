@@ -16,7 +16,7 @@ export class Table extends ExcelComponent {
     constructor($root, options) {
         super($root, {
             name: 'Table',
-            listeners: ['mousedown', 'keydown'],
+            listeners: ['mousedown', 'keydown', 'input'],
             ...options
         });
     };
@@ -33,14 +33,24 @@ export class Table extends ExcelComponent {
         super.init();
 
         // this.selection = new TableSelection();
-        const $cell = this.$root.find('[data-id="0:0"]');
-        this.selection.select($cell);
+        // const $cell = this.$root.find('[data-id="0:0"]');
+        this.selectCell(this.$root.find('[data-id="0:0"]'));
+
         // this.emitter.subscribe('Emitter is working', 
         this.$on('Formula: input', 
         (text) => {
             this.selection.current.text(text);
             // console.log('To Table from Formula', text);
         });
+
+        this.$on('Formula: done', () => {
+            this.selection.current.focus();
+        });
+    };
+
+    selectCell($cell) {
+        this.selection.select($cell);
+        this.$emit('Table: select', $cell);
     };
 
     onMousedown(event) {
@@ -63,8 +73,14 @@ export class Table extends ExcelComponent {
     };
 
     onKeydown(event) {
-        const keys = ['Enter', 'Tab', 'ArrowLeft', 'ArrowRight', 
-            'ArrowUp', 'ArrowDown'];
+        const keys = [
+            'Enter', 
+            'Tab', 
+            'ArrowLeft', 
+            'ArrowRight', 
+            'ArrowUp',
+             'ArrowDown'
+            ];
         const {key} = event;
         if (keys.includes(key) && !event.shiftKey) {
             event.preventDefault();
@@ -72,9 +88,15 @@ export class Table extends ExcelComponent {
             // console.log(key);
 
             const $next = this.$root.find(nextSelector(key, id));
-            this.selection.select($next);
+            this.selectCell($next);
+            // this.selection.select($next);
+            // this.$emit('Table: select', $next);
         }
         
+    };
+
+    onInput(event) {
+        this.$emit('Table: input', $(event.target));
     };
 };
 
