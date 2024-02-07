@@ -41,9 +41,9 @@ export class Table extends ExcelComponent {
             this.selection.current.focus();
         });
 // test
-        // this.$subscribe((state) => {
-            // console.log('Table state ', state);
-        // });
+        this.$subscribe((state) => {
+            console.log('Table state ', state);
+        });
     };
 
     selectCell($cell) {
@@ -53,9 +53,20 @@ export class Table extends ExcelComponent {
         // this.$dispatch({type: 'TEST'}); 
     };
 
+    async resizeTable(event) {
+        try {
+            const data = await resizeHandler(this.$root, event);
+            this.$dispatch({type: 'TABLE_RESIZE', data});
+            // console.log('Resize data', data);
+        } catch (e) {
+            console.warn('Resize error ', e.message);
+        }
+    };
+
     onMousedown(event) {
         if (shouldResize(event)) {
-            resizeHandler(this.$root, event);
+            // this.resizeHandler(event);
+            this.resizeTable(event);
         } else if (isCell(event)) {
             const $target = $(event.target); 
             if (event.shiftKey) {
