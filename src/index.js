@@ -6,8 +6,16 @@ import { Table } from './components/table/Table';
 import './scss/index.scss';
 import { createStore } from './core/createStore';
 import { rootReducer } from './myRedux/rootReduser';
+import { storage } from './core/utils';
 
-const store = createStore(rootReducer, {colState: {}});
+const store = createStore(rootReducer, storage('excel-state'));
+// const store = createStore(rootReducer, {colState: {}});
+
+store.subscribe((state) => {
+    console.log('App State: ', state);
+    // localStorage.setItem('exel-state', JSON.stringify(state));
+    storage('excel-state', state);
+});
 
 const excel = new Excel('#app', {
     components: [Header, Toolbar, Formula, Table],
