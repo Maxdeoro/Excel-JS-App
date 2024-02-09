@@ -7,9 +7,10 @@ import './scss/index.scss';
 import { createStore } from './core/createStore';
 import { rootReducer } from './myRedux/rootReduser';
 import { storage } from './core/utils';
+import { initialState } from './myRedux/initialState';
 
-const store = createStore(rootReducer, storage('excel-state'));
-// const store = createStore(rootReducer, {colState: {}});
+// const store = createStore(rootReducer, storage('excel-state'));
+const store = createStore(rootReducer, initialState);
 
 store.subscribe((state) => {
     console.log('App State: ', state);
@@ -23,5 +24,3 @@ const excel = new Excel('#app', {
 });
 
 excel.render();
-
-// console.log('Excel: ', excel);
