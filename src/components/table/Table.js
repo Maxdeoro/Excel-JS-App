@@ -1,12 +1,9 @@
 import { ExcelComponent } from '../../core/ExcelComponent';
 import { createTable } from './table.template';
 import { resizeHandler } from './table.resize';
-import { shouldResize } from './table.functions';
 import { TableSelection } from './TableSelection';
-import { isCell } from './table.functions';
+import { isCell, matrix, nextSelector, shouldResize } from './table.functions';
 import { $ } from '../../core/dom';
-import { matrix } from './table.functions';
-import { nextSelector } from './table.functions';
 import * as actions from '../../myRedux/actions';
 
 export class Table extends ExcelComponent {
@@ -33,9 +30,9 @@ export class Table extends ExcelComponent {
 
         this.selectCell(this.$root.find('[data-id="0:0"]'));
 
-        this.$on('Formula: input', 
-        (text) => {
+        this.$on('Formula: input', (text) => {
             this.selection.current.text(text);
+            this.updateTextInStore(text);
         });
 
         this.$on('Formula: done', () => {
@@ -50,8 +47,6 @@ export class Table extends ExcelComponent {
     selectCell($cell) {
         this.selection.select($cell);
         this.$emit('Table: select', $cell);
-        // test
-        // this.$dispatch({type: 'TEST'}); 
     };
 
     async resizeTable(event) {
@@ -67,15 +62,13 @@ export class Table extends ExcelComponent {
 
     onMousedown(event) {
         if (shouldResize(event)) {
-            // this.resizeHandler(event);
             this.resizeTable(event);
         } else if (isCell(event)) {
             const $target = $(event.target); 
             if (event.shiftKey) {
                 // group of cells select
-
                 const $cells = matrix($target, this.selection.current)
-                        .map((id) => this.$root.find(`[data-id='${id}']`));
+                        .map((id) => this.$root.find(`[data-id="${id}"]`));
                         this.selection.selectGroup($cells);
             } else {
                 // this.selection.select($target); // !!!
@@ -97,15 +90,20 @@ export class Table extends ExcelComponent {
         if (keys.includes(key) && !event.shiftKey) {
             event.preventDefault();
             const id = this.selection.current.id(true);
-
             const $next = this.$root.find(nextSelector(key, id));
             this.selectCell($next);
-        }
-        
+        }    
+    };
+
+    updateTextInStore(value) {
+        this.$dispatch(actions.changeText({
+            id: this.selection.current.id(),
+            value,
+        }));
     };
 
     onInput(event) {
-        this.$emit('Table: input', $(event.target));
+        this.updateTextInStore($(event.target).text());
     };
 };
 

@@ -75,16 +75,6 @@ class Dom {
         });
     };
 
-    addClass(className) {
-        this.$el.classList.add(className);
-        return this;
-    };
-
-    removeClass(className) {
-        this.$el.classList.remove(className);
-        return this;
-    };
-
     id(parse) {
         if (parse) {
             const parsed = this.id().split(':');
@@ -100,7 +90,17 @@ class Dom {
         this.$el.focus();
         return this;
     };
-}
+
+    addClass(className) {
+        this.$el.classList.add(className);
+        return this;
+    };
+
+    removeClass(className) {
+        this.$el.classList.remove(className);
+        return this;
+    };
+};
 
 export function $(selector) {
     return new Dom(selector);
