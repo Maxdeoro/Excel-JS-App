@@ -25,7 +25,3 @@ export class Emitter {
         };
     };
 };
-
-// const emitter = new Emitter();
-// emitter.subscribe('crash', (data) => console.log('Sub: ' + data));
-// emitter.emit('crash', 45);
