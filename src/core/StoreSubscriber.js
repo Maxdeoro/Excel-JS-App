@@ -1,5 +1,4 @@
-import { isEqual } from './utils';
-// import { ExcelComponent } from './ExcelComponent';  
+import { isEqual } from './utils'; 
 
 export class StoreSubscriber {
     constructor(store) {
