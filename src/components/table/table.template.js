@@ -1,3 +1,7 @@
+// import { defaultStyles } from '../../constants';
+import { camelToDashCase } from '../../core/utils';
+import { defaultStyles } from '@/constants';
+
 /* eslint-disable no-multi-spaces */
 const CODES = {
     A: 65,          // 'A'.charCodeAt()
@@ -20,13 +24,16 @@ function toCell(state, row) {
         const id = `${row}:${col}`;
         const width = getWidth(state.colState, col);
         const data = state.dataState[id];
+        const styles = Object.keys(defaultStyles)
+            .map((key) => `${camelToDashCase(key)}: ${defaultStyles[key]}`)
+            .join(';');
         return `<div 
                 class='cell' 
                 contenteditable 
                 data-col='${col}' 
                 data-id='${id}' 
-                data-type='cell' 
-                style='width: ${width}'
+                data-type='cell'  
+                style="${styles}; width: ${width}"
                 >
                     ${data || ''}
                 </div>`;
@@ -45,7 +52,7 @@ function toColumn({col, index, width}) {
             </div>`;
 };
 
-function createRow(index, content, state) {
+function createRow(index, content, state={}) {
     const height = getHeight(state, index);
     const resize = index ? `<div class='row-resize' data-resize='row'>
                             </div>` : '';
@@ -86,7 +93,8 @@ export function createTable(rowsCount=15, state={}) {
         .map(toColumn)
         .join('');
 
-    rows.push(createRow(null, cols, {}));
+    rows.push(createRow(null, cols));
+    // rows.push(createRow(null, cols, {}));
 
     for (let row = 0; row < rowsCount; row++) {
         const cells = new Array(colsCount)
