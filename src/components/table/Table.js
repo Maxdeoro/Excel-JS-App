@@ -40,18 +40,19 @@ export class Table extends ExcelComponent {
             this.selection.current.focus();
         });
 
-        this.$on('toolbar:applyStyle', (style) =>{
-            this.selection.applyStyle(style);
+        this.$on('toolbar:applyStyle', (value) => {
+            this.selection.applyStyle(value);
+            this.$dispatch(actions.applyStyle({
+                value,
+                ids: this.selection.selectedIds,
+            }));
         });
-// test
-        // this.$subscribe((state) => {
-        //     console.log('Table state ', state);
-        // });
     };
 
     selectCell($cell) {
         this.selection.select($cell);
         this.$emit('Table: select', $cell);
+        // this.$emit('table:select', $cell);
         const styles = $cell.getStyles(Object.keys(defaultStyles));
         console.log('Styles to dispatch: ', styles);
         this.$dispatch(actions.changeStyles(styles));

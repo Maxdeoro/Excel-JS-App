@@ -1,6 +1,4 @@
-// import { defaultStyles } from '../../constants';
-import { camelToDashCase } from '../../core/utils';
-import { defaultStyles } from '@/constants';
+import { toInlineStyles } from '../../core/utils';
 
 /* eslint-disable no-multi-spaces */
 const CODES = {
@@ -24,9 +22,10 @@ function toCell(state, row) {
         const id = `${row}:${col}`;
         const width = getWidth(state.colState, col);
         const data = state.dataState[id];
-        const styles = Object.keys(defaultStyles)
-            .map((key) => `${camelToDashCase(key)}: ${defaultStyles[key]}`)
-            .join(';');
+        const styles = toInlineStyles(state.stylesState[id]);
+        // const styles = toInlineStyles(defaultStyles);
+            // .map((key) => `${camelToDashCase(key)}: ${defaultStyles[key]}`)
+            // .join(';');
         return `<div 
                 class='cell' 
                 contenteditable 
