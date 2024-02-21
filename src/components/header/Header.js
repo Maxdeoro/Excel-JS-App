@@ -2,6 +2,7 @@ import { defaultTitle } from '../../constants';
 import { ExcelComponent } from '../../core/ExcelComponent';
 import { $ } from '../../core/dom';
 import { changeTitle } from '../../myRedux/actions';
+import { debounce } from '../../core/utils';
 
 export class Header extends ExcelComponent {
     static className = 'excel__header';
@@ -13,6 +14,10 @@ export class Header extends ExcelComponent {
             ...options,
         });
     }
+
+    prepare() {
+        this.onInput = debounce(this.onInput, 300);
+    };
 
     toHTML() {
         const title = this.store.getState().title || defaultTitle;
@@ -30,6 +35,7 @@ export class Header extends ExcelComponent {
     }
 
     onInput(event) {
+        console.log('onInput');
         const $target = $(event.target);
         this.$dispatch(changeTitle($target.text()));
     };
