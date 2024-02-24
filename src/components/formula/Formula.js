@@ -8,16 +8,30 @@ export class Formula extends ExcelComponent {
         super($root, {
             name: 'Formula',
             listeners: ['input', 'keydown'],
+            subscribe: ['currentText'],
             ...options
         });
-    }
+    };
 
     toHTML() {
         return `
-        <div class="formula-info">fx</div>
-        <div id="formula" class="formula-input" contenteditable spellcheck="false"></div>
+        <div class="info">fx</div>
+        <div 
+        revert  
+        id="formula" 
+        class="input" 
+        contenteditable 
+        spellcheck="false">
+        </div>
         `;
-    }
+    };
+
+    // toHTML() {
+    //     return `
+    //     <div class="info">fx</div>
+    //     <input id="formula" class="input" contenteditable spellcheck="false"></input>
+    //     `;
+    // };
 
     init() {
         super.init();
@@ -25,12 +39,13 @@ export class Formula extends ExcelComponent {
         this.$formula = this.$root.find('#formula');
 
         this.$on('Table: select', ($cell) => {
-            this.$formula.text($cell.text());
+            this.$formula.text($cell.data.value);
         });
+    };
 
-        this.$on('Table: input', ($cell) => {
-            this.$formula.text($cell.text());
-        });
+    storeChanged({currentText}) {
+        this.$formula.text(currentText);
+        // console.log('Changes', changes);
     };
 
     onInput(event) {
