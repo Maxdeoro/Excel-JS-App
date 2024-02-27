@@ -8,7 +8,7 @@ export class Router {
         }
         this.$placeholder = $(selector);
         this.routs = routs;
-
+        this.page = null;
         this.changePageHandler = this.changePageHandler.bind(this);
 
         this.init();
@@ -19,9 +19,21 @@ export class Router {
     };
 
     changePageHandler() {
-        console.log(ActiveRout.param);
-        this.$placeholder.html('<h1>' + ActiveRout.path + '</h1>');
-        console.log(this.$placeholder);
+        if (this.page) {
+            this.page.destroy();
+        }
+        this.$placeholder.clear();
+        const Page = ActiveRout.path.includes('excel') 
+           ? this.routs.excel 
+           : this.routs.dashboard;
+
+        this.page = new Page(ActiveRout.param);
+        // const Page = this.routs.excel;
+        // const Page = this.routs.dashboard;
+        // const page = new Page();
+        this.$placeholder.append(this.page.getRoot());
+        
+        this.page.afterRender();
     };
 
     destroy() {
