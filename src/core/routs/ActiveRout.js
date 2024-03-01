@@ -6,4 +6,8 @@ export class ActiveRout {
     static get param() {
         return ActiveRout.path.split('/')[1];
     };
+
+    static navigate(path) {
+        window.location.hash = path;
+    };
 };
