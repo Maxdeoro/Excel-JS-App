@@ -10,6 +10,7 @@ const defaultState = {
     stylesState: {},
     currentText: '', // text in Cell or Formula
     currentStyles: defaultStyles,
+    openDate: new Date().toJSON(),
 };
 
 const normalize = (state) => ({
@@ -17,10 +18,6 @@ const normalize = (state) => ({
     currentStyles: defaultStyles,
     currentText: ''
 });
-
-// export const initialState = storage('excel-state') 
-//                             ? normalize(storage('excel-state')) 
-//                             : defaultState;
 
 export function normalizeInitialState(state) {
     return state ? normalize(state) : clone(defaultState);
