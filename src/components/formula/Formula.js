@@ -26,13 +26,6 @@ export class Formula extends ExcelComponent {
         `;
     };
 
-    // toHTML() {
-    //     return `
-    //     <div class="info">fx</div>
-    //     <input id="formula" class="input" contenteditable spellcheck="false"></input>
-    //     `;
-    // };
-
     init() {
         super.init();
 
@@ -45,7 +38,6 @@ export class Formula extends ExcelComponent {
 
     storeChanged({currentText}) {
         this.$formula.text(currentText);
-        // console.log('Changes', changes);
     };
 
     onInput(event) {

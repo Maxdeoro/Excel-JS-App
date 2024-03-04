@@ -3,6 +3,7 @@
 /* eslint-disable object-curly-spacing */
 // eslint-disable-next-line linebreak-style
 const path = require('path');
+const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
@@ -11,9 +12,6 @@ const ESLintPlugin = require('eslint-webpack-plugin');            // added 08.01
 
 const isProd = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
-
-// console.log('IS PROD', isProd);
-// console.log('IS DEV', isDev);
 
 const fileName = (ext) => isDev ? `bundle.${ext}` : `bundle.[fullhash].${ext}`;
 
@@ -116,6 +114,9 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: fileName('css'),
       // filename: 'bundle.[fullhash].css',
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
   ],
 };
