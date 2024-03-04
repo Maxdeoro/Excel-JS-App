@@ -28,9 +28,6 @@ function toCell(state, row) {
             ...defaultStyles,
             ...state.stylesState[id]
         });
-        // const styles = toInlineStyles(defaultStyles);
-            // .map((key) => `${camelToDashCase(key)}: ${defaultStyles[key]}`)
-            // .join(';');
         return `<div 
                 class='cell' 
                 contenteditable 
@@ -99,7 +96,6 @@ export function createTable(rowsCount=15, state={}) {
         .join('');
 
     rows.push(createRow(null, cols));
-    // rows.push(createRow(null, cols, {}));
 
     for (let row = 0; row < rowsCount; row++) {
         const cells = new Array(colsCount)

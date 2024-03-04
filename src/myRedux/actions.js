@@ -30,7 +30,6 @@ export function changeStyles(data) {
     };
 };
 
-// data = value, id
 export function applyStyle(data) {
     return {
         type: APPLY_STYLE,

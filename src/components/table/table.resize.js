@@ -27,7 +27,7 @@ export function resizeHandler($root, event) {
     
         document.onmouseup = (e) => {
             document.onmousemove = null;
-            document.onmouseup = null; // ?
+            document.onmouseup = null; 
     
             
             if (type === 'col') {

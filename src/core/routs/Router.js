@@ -28,11 +28,7 @@ export class Router {
            : this.routs.dashboard;
 
         this.page = new Page(ActiveRout.param);
-        // const Page = this.routs.excel;
-        // const Page = this.routs.dashboard;
-        // const page = new Page();
         this.$placeholder.append(this.page.getRoot());
-        
         this.page.afterRender();
     };
 

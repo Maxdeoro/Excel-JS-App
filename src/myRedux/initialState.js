@@ -1,4 +1,3 @@
-// import { storage } from '../core/utils';
 import { defaultStyles, defaultTitle } from '../constants';
 import { clone } from '../core/utils';
 
@@ -6,9 +5,9 @@ const defaultState = {
     title: defaultTitle,
     rowState: {},
     colState: {},
-    dataState: {}, // '0:1': 'some text'
+    dataState: {}, 
     stylesState: {},
-    currentText: '', // text in Cell or Formula
+    currentText: '', 
     currentStyles: defaultStyles,
     openDate: new Date().toJSON(),
 };

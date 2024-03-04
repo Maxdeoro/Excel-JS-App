@@ -1,4 +1,3 @@
-// import { toInlineStyles } from '../core/utils';
 import { 
     APPLY_STYLE,
      CHANGE_STYLES,

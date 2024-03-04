@@ -14,7 +14,7 @@ export class Header extends ExcelComponent {
             listeners: ['input', 'click'],
             ...options,
         });
-    }
+    };
 
     prepare() {
         this.onInput = debounce(this.onInput, 300);
@@ -33,7 +33,7 @@ export class Header extends ExcelComponent {
                 </div>
             </div>
             `;
-    }
+    };
 
     onClick(event) {
         const $target = $(event.target);
@@ -49,7 +49,6 @@ export class Header extends ExcelComponent {
     };
 
     onInput(event) {
-        console.log('onInput');
         const $target = $(event.target);
         this.$dispatch(changeTitle($target.text()));
     };

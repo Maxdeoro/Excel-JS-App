@@ -24,7 +24,6 @@ export function createToolbar(state) {
             icon: 'format_align_center',
             active: state['textAlign'] === 'center',
             value: {textAlign: state['textAlign'] === 'center' ? 'left' : 'center'}
-            // value: {textAlign: 'center'}
         },
         {
             icon: 'format_align_right',
@@ -40,8 +39,6 @@ export function createToolbar(state) {
             icon: 'format_italic',
             active: state['fontStyle'] === 'italic',
             value: {fontStyle: state['fontStyle'] === 'italic' ? 'normal' : 'italic'}
-            // active: false,
-            // value: {fontStyle: 'italic'},
         },
         {
             icon: 'format_underlined',
