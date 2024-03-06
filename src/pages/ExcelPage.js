@@ -6,7 +6,7 @@ import { Table } from '../components/table/Table';
 import { Excel } from '../components/excel/Excel';
 import { storage } from '../core/utils';
 import { debounce } from '../core/utils';
-import { createStore } from '../core/createStore';
+import { createStore } from '../core/store/createStore';
 import { rootReducer } from '../myRedux/rootReduser';
 import { normalizeInitialState } from '../myRedux/initialState';
 
