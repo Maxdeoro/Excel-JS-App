@@ -16,17 +16,18 @@ const isDev = !isProd;
 const fileName = (ext) => isDev ? `bundle.${ext}` : `bundle.[fullhash].${ext}`;
 
 const jsLoaders = () => {
-  const loaders = [
-    {
-      loader: 'babel-loader',
-      options: {
-        presets: [
-          ['@babel/preset-env', { targets: 'defaults' }],
-        ],
-        plugins: ['@babel/plugin-transform-class-properties']
-      },
-    },
-  ];
+  const loaders = ['babel-loader'];
+  // const loaders = [
+  //   {
+  //     loader: 'babel-loader',
+  //     options: {
+  //       presets: [
+  //         ['@babel/preset-env', { targets: 'defaults' }],
+  //       ],
+  //       plugins: ['@babel/plugin-transform-class-properties']
+  //     },
+  //   },
+  // ];
   if (isDev) {
     loaders.push('eslint-loader');
   }
